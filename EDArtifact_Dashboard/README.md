@@ -1,6 +1,6 @@
 
-# EDArtifact 
-EDArtifact is a dashboard for labeling physiological signals. It is initially developed to label artifacts in physiological data such as electrodermal activity (EDA). But it can easily be extended to label any other type of signals such as, e.g., blood volume pulse or skin temperature. 
+# EDArtifact_Dashboard 
+EDArtifact_Dashboard is a dashboard for labeling physiological signals. It is initially developed to label artifacts in physiological data such as electrodermal activity (EDA). But it can easily be extended to label any other type of signals such as, e.g., blood volume pulse or skin temperature. 
 
 If you use the dashboard or the guidelines for manual labeling of artifacts (Artifacts_Labeling_Instructions.pdf) please cite the paper [1]: 
 
@@ -21,10 +21,10 @@ Please do not hesitate to contact us at silvia.santini@usi.ch if you have any qu
 	- pip install dash-daq==0.1.0
 	- pip install dash-auth 
 
-3. Move to EDArtifact folder
-	- cd /yourpathtofolder/EDArtifact
+3. Move to EDArtifact_Dashboard folder
+	- cd /yourpathtofolder/EDArtifact/EDArtifact_Dashboard
 
-4. Create *static* folder inside EDArtifact 
+4. Create *static* folder inside EDArtifact_Dashboard 
 
 5. Create a CSV file `auth_details.csv` with columns: `username` and `password` and add username and password of your choice. 
 Place the file inside static folder.
@@ -41,12 +41,12 @@ Comment: In case of issues to install. Please first check whether you have the s
 	- Which python
 
 
-## EDArtifact Technical Specifications
+## EDArtifact_Dashboard: Technical specifications
 
-EDArtifact was developed using Dash, a Python framework built on top of Flask, Plotly.js, and React.js. It is primarily used for data visualization in web applications. To get familiar with `Dash` you may use the tutorials in https://dash.plot.ly/ and utilize the different `Dash` Core Components presented in https://dash.plot.ly/dash-core-components. 
+EDArtifact_Dashboard was developed using Dash, a Python framework built on top of Flask, Plotly.js, and React.js. It is primarily used for data visualization in web applications. To get familiar with `Dash` you may use the tutorials in https://dash.plot.ly/ and utilize the different `Dash` Core Components presented in https://dash.plot.ly/dash-core-components. 
 
 
-## EDArtifact usage instructions
+## EDArtifact_Dashboard: Usage instructions
 To start labelling a session you should first upload the data using the Upload button. You will then need to choose one csv file that contains two columns: `EDA_Filtered` and `Time`. To ensure a certain degree of reliability, a backup ﬁle is generated after ﬁnishing the labelling of the first 10-minute window. This allows you to reload it in case of a crash, as well as temporarily stop and continue later, using the Continue labelling button. The backup feature sometimes might not work properly. If you wish to delete all the provided labels in a session and restart labelling the session, you may use the Reset button. If the majority of the segments in a 10-minute window are clean or artifacts you may use the Mark all as clean or Mark all as artifact buttons respectively and then go to specific 5-second windows to change the label. Once you are done you may click the Finish button to save your labels. 
 
 `Label`: Artifact, Clean, Unsure
