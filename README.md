@@ -2,9 +2,9 @@
 # EDArtifact 
 EDArtifact is a repository that contains three main items as following:
 
-- *EDArtifact_Dashboard*: is a dashboard used to **manually** label artifacts in electrodermal activity (EDA) data. The dashboard has been implemented to easily inspect and label EDA signals collected in the wild over long periods of time i.e., several hours or days. 
-- *EDArtifacts_Detection*: contains the scripts for **automatic** identification of artifacts in EDA signals.
-- *EDArtifacts_Guidelines*: contains the guidelines for manual identification of artifacts in EDA signals.
+- *EDArtifact_Dashboard*: is a dashboard used to **manually** label artifacts in electrodermal activity (EDA) data. The dashboard has been implemented to easily inspect and label EDA signals collected in the wild over long periods of time i.e., several hours or days. The folder contains detailed instructions on how to install and use the dashboard.
+- *EDArtifacts_Detection*: contains the scripts for **automatic** identification of artifacts in EDA signals. The folder includes instructions on how to run the scripts for identifying artifacts in your data. 
+- *EDArtifacts_Guidelines*: contains the guidelines for manual labeling of artifacts in EDA signals.
 
 If you use the scripts for automatic identification of artifacts or the guidelines and the dashboard for manual labeling of atifacts in EDA signals, please cite the paper [1]: 
 
