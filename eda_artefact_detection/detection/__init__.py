@@ -107,9 +107,12 @@ def compute_eda_artifacts(
         raise RuntimeError(
             f"Something went wrong. These are all of the inputs: {locals()}"
         )
-
+    if (not isinstance(database, pd.DataFrame)):
+        warn(f'Input data is not a pandas DataFrame, but {type(database)}. Trying to convert it.')
+        database = pd.DataFrame(database)
+        
     if convert_dataframe:
-        if "mixed-EDA" in database.columns:
+        if  "mixed-EDA" in database.columns:
             database = database.reset_index(inplace=False, drop=False)
             database = database.rename(
                 columns={"mixed-EDA": "EDA", "timestamp": "Time"}
