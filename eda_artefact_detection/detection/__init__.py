@@ -78,7 +78,8 @@ def compute_eda_artifacts(
     convert_dataframe: bool = False,
     output_path: str | None = None,
     header: None | int | list[int] = None,
-    window_size: int = 5
+    window_size: int = 5,
+    save_features: bool = False,
 ):
     # Read EDA data file
     if file_path.split(".")[-1] == "csv":
@@ -166,14 +167,20 @@ def compute_eda_artifacts(
         "Wavelet1_std",
     ]
 
+    if save_features:
+        database_wo_flats_artifacts[features].to_csv(
+            output_path.split(".")[0] + "_features.csv", index=False
+        )
     # 5. Identify artifacts in EDA
-    database_wo_flats_artifacts = predict_shape_artifacts(features, database_wo_flats, model_path=model_path)
+    database_wo_flats_artifacts = predict_shape_artifacts(
+        features, database_wo_flats, model_path=model_path
+    )
 
     # 6. Prepare final database with labeled artifacts
     database_w_artifacts = label_artifacts(database_wo_flats_artifacts, database)
 
     # Write the file with eda artifacts labeled in the same file path as the original file
     if not output_path:
-        database.to_csv(file_path[:-4] + "_artifacts.csv", index=False)
+        database_w_artifacts.to_csv(file_path[:-4] + "_artifacts.csv", index=False)
     else:
-        database.to_csv(output_path, index=False)
+        database_w_artifacts.to_csv(output_path, index=False)
