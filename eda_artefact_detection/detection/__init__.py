@@ -1,10 +1,10 @@
 import pandas as pd
-from support.preprocess import preprocess_eda_signals
-from support.merging_artefacts import label_artifacts
-from support.predict import predict_shape_artifacts
-from support.peaks import compute_peaks_features
-from support.wavelets import compute_statistical_wavelet
-from support.segment import segment_eda_data
+from eda_artefact_detection.detection.preprocess import preprocess_eda_signals
+from eda_artefact_detection.detection.merging_artefacts import label_artifacts
+from eda_artefact_detection.detection.predict import predict_shape_artifacts
+from eda_artefact_detection.detection.peaks import compute_peaks_features
+from eda_artefact_detection.detection.wavelets import compute_statistical_wavelet
+from eda_artefact_detection.detection.segment import segment_eda_data
 
 
 def remove_flat_responses(df):
