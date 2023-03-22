@@ -226,4 +226,4 @@ def compute_eda_artifacts(
         database_w_artifacts.to_csv(output_path, index=False)
 
     if return_vals:
-        database_wo_flats_artifacts, database_w_artifacts
+        return database_wo_flats_artifacts, database_w_artifacts
