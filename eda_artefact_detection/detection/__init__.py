@@ -97,12 +97,16 @@ def compute_eda_artifacts(
             database = pd.read_parquet(file_path, header=header)
     elif data is not None:
         if file_path is not None:
-            warn('Both "data" and "file_path" are provided, "file_path" will be ignored.')
+            warn(
+                'Both "data" and "file_path" are provided, "file_path" will be ignored.'
+            )
         database = data
     elif data is None and file_path is None:
         raise ValueError(f'Both "data" and "file_path" are None. Provide one of them.')
     else:
-        raise RuntimeError(f"Something went wrong. These are all of the inputs: {locals()}")
+        raise RuntimeError(
+            f"Something went wrong. These are all of the inputs: {locals()}"
+        )
 
     if convert_dataframe:
         if "mixed-EDA" in database.columns:
@@ -111,8 +115,21 @@ def compute_eda_artifacts(
                 columns={"mixed-EDA": "EDA", "timestamp": "Time"}
             )
         else:
-            database.attrs["sampling frequency"] = int(float(database.columns[0][-1]))
-            database.attrs["start timestamp [unixtime]"] = database.columns[0][0]
+            if "sampling frequency" not in database.attrs:
+                warn(
+                    f'No "sampling frequency" attribute found the attributes of \
+                        the dataframe. Trying to etxract from column names'
+                )
+                database.attrs["sampling frequency"] = int(
+                    float(database.columns[0][-1])
+                )
+            if "start timestamp [unixtime]" not in database.attrs:
+                warn(
+                    f'No "start timestamp [unixtime]" attribute found the attributes of \
+                        the dataframe. Trying to etxract from column names'
+                )
+                database.attrs["start timestamp [unixtime]"] = database.columns[0][0]
+
             database = make_timestamp_idx(database, data_name="EDA")
             database = database.reset_index(inplace=False, drop=False)
             database.columns = ["Time", "EDA"]
@@ -190,7 +207,7 @@ def compute_eda_artifacts(
     if model_path is None:
         dir_path = os.path.dirname(os.path.realpath(__file__))
         model_path: str = os.path.join(*dir_path.split("/")[:-1], "SA_Detection.json")
-        
+
     database_wo_flats_artifacts = predict_shape_artifacts(
         features, database_wo_flats, model_path=model_path
     )
@@ -203,6 +220,6 @@ def compute_eda_artifacts(
         database_w_artifacts.to_csv(file_path[:-4] + "_artifacts.csv", index=False)
     else:
         database_w_artifacts.to_csv(output_path, index=False)
-        
+
     if return_vals:
         database_wo_flats_artifacts, database_w_artifacts
