@@ -209,7 +209,7 @@ def compute_eda_artifacts(
     # 5. Identify artifacts in EDA
     if model_path is None:
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        model_path: str = os.path.join(*dir_path.split("/")[:-1], "SA_Detection.json")
+        model_path: str = f'/{os.path.join(*dir_path.split("/")[:-1], "SA_Detection.json")}'
 
     database_wo_flats_artifacts = predict_shape_artifacts(
         features, database_wo_flats, model_path=model_path
