@@ -1,0 +1,37 @@
+*.egg-info
+.vscode
+build/
+.ipynb_checkpoints/
+
+# python
+__pycache__/
+
+# macos
+.DS_Store
+
+# editors
+*~
+*.bak
+
+# matlab
+*.asv
+*.mat
+
+# octave
+octave-core
+
+# latex
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.idx
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.synctex.gz
+*.thm
+*.toc
+*.vrb
