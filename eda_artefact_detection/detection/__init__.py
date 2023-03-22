@@ -220,7 +220,8 @@ def compute_eda_artifacts(
 
     # Write the file with eda artifacts labeled in the same file path as the original file
     if not output_path:
-        database_w_artifacts.to_csv(file_path[:-4] + "_artifacts.csv", index=False)
+        # database_w_artifacts.to_csv(file_path[:-4] + "_artifacts.csv", index=False)
+        pass
     else:
         database_w_artifacts.to_csv(output_path, index=False)
 
