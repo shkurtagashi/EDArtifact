@@ -9,6 +9,8 @@ setup(
     author_email="leonardo@alchieri.eu",
     license="",
     packages=["eda_artefact_detection", "eda_artefact_detection.detection"],
+    package_data={"eda_artefact_detection": ["*.json"]},
+    include_package_data=True,
     install_requires=["pandas", "numpy", "xgboost", "scipy", "cvxEDA", "PyWavelets"],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
