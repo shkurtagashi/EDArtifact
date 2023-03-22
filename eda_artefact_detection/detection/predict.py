@@ -27,7 +27,12 @@ def predict_shape_artifacts(features, df, model_path: str):
 
     # Load the trained model
     model = xgboost.XGBClassifier()
-    model.load_model(model_path)
+    try:
+        model.load_model(model_path)
+    except Exception as e:
+        print(f'Error loading model: {e}')
+        raise RuntimeError(f'Failed to load xgboost model. See previous print for error detail. Input path give: {model_path}')
+        
     # model = pickle.load(open('SA_Detection.sav', 'rb'))
 
     # Use the loaded model to find artifacts

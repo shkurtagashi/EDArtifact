@@ -107,12 +107,14 @@ def compute_eda_artifacts(
         raise RuntimeError(
             f"Something went wrong. These are all of the inputs: {locals()}"
         )
-    if (not isinstance(database, pd.DataFrame)):
-        warn(f'Input data is not a pandas DataFrame, but {type(database)}. Trying to convert it.')
+    if not isinstance(database, pd.DataFrame):
+        warn(
+            f"Input data is not a pandas DataFrame, but {type(database)}. Trying to convert it."
+        )
         database = pd.DataFrame(database)
-        
+
     if convert_dataframe:
-        if  "mixed-EDA" in database.columns:
+        if "mixed-EDA" in database.columns:
             database = database.reset_index(inplace=False, drop=False)
             database = database.rename(
                 columns={"mixed-EDA": "EDA", "timestamp": "Time"}
@@ -120,16 +122,14 @@ def compute_eda_artifacts(
         else:
             if "sampling frequency" not in database.attrs:
                 warn(
-                    f'No "sampling frequency" attribute found the attributes of \
-                        the dataframe. Trying to etxract from column names'
+                    f'No "sampling frequency" attribute found the attributes of the dataframe. Trying to etxract from column names'
                 )
                 database.attrs["sampling frequency"] = int(
                     float(database.columns[0][-1])
                 )
             if "start timestamp [unixtime]" not in database.attrs:
                 warn(
-                    f'No "start timestamp [unixtime]" attribute found the attributes of \
-                        the dataframe. Trying to etxract from column names'
+                    f'No "start timestamp [unixtime]" attribute found the attributes of the dataframe. Trying to etxract from column names'
                 )
                 database.attrs["start timestamp [unixtime]"] = database.columns[0][0]
 
