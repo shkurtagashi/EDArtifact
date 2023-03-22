@@ -80,6 +80,7 @@ def compute_eda_artifacts(
     header: None | int | list[int] = None,
     window_size: int = 5,
     save_features: bool = False,
+    return_vals: bool = False,
 ):
     # Read EDA data file
     if file_path.split(".")[-1] == "csv":
@@ -184,3 +185,6 @@ def compute_eda_artifacts(
         database_w_artifacts.to_csv(file_path[:-4] + "_artifacts.csv", index=False)
     else:
         database_w_artifacts.to_csv(output_path, index=False)
+        
+    if return_vals:
+        database_wo_flats_artifacts, database_w_artifacts
