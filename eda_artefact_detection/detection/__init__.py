@@ -1,4 +1,7 @@
 import pandas as pd
+import os
+from warnings import warn
+
 from eda_artefact_detection.detection.preprocess import preprocess_eda_signals
 from eda_artefact_detection.detection.merging_artefacts import label_artifacts
 from eda_artefact_detection.detection.predict import predict_shape_artifacts
@@ -71,9 +74,11 @@ def make_timestamp_idx(dataframe: pd.DataFrame, data_name: str) -> pd.DataFrame:
     return dataframe.sort_index()
 
 
+# TODO: make this into a class
 def compute_eda_artifacts(
-    file_path: str,
-    model_path: str,
+    data: pd.DataFrame | None = None,
+    model_path: str | None = None,
+    file_path: str | None = None,
     show_database: bool = False,
     convert_dataframe: bool = False,
     output_path: str | None = None,
@@ -82,13 +87,22 @@ def compute_eda_artifacts(
     save_features: bool = False,
     return_vals: bool = False,
 ):
-    # Read EDA data file
-    if file_path.split(".")[-1] == "csv":
-        database = pd.read_csv(file_path, header=header)
-    elif file_path.split(".")[-1] == "xlsx":
-        database = pd.read_excel(file_path, header=header)
-    elif file_path.split(".")[-1] == "parquet":
-        database = pd.read_parquet(file_path, header=header)
+    if data is None and file_path is not None:
+        # Read EDA data file
+        if file_path.split(".")[-1] == "csv":
+            database = pd.read_csv(file_path, header=header)
+        elif file_path.split(".")[-1] == "xlsx":
+            database = pd.read_excel(file_path, header=header)
+        elif file_path.split(".")[-1] == "parquet":
+            database = pd.read_parquet(file_path, header=header)
+    elif data is not None:
+        if file_path is not None:
+            warn('Both "data" and "file_path" are provided, "file_path" will be ignored.')
+        database = data
+    elif data is None and file_path is None:
+        raise ValueError(f'Both "data" and "file_path" are None. Provide one of them.')
+    else:
+        raise RuntimeError(f"Something went wrong. These are all of the inputs: {locals()}")
 
     if convert_dataframe:
         if "mixed-EDA" in database.columns:
@@ -173,6 +187,10 @@ def compute_eda_artifacts(
             output_path.split(".")[0] + "_features.csv", index=False
         )
     # 5. Identify artifacts in EDA
+    if model_path is None:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        model_path: str = os.path.join(*dir_path.split("/")[:-1], "SA_Detection.json")
+        
     database_wo_flats_artifacts = predict_shape_artifacts(
         features, database_wo_flats, model_path=model_path
     )
