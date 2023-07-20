@@ -14,6 +14,19 @@ The paper is available at https://dl.acm.org/doi/10.1145/3397316.
 
 Please do not hesitate to contact us at silvia.santini@usi.ch if you have any questions in general or experience issues with the tools.
 
+-----
+This package was made pip-installable by @LeonardoAlchieri: feel free to contact him as well. While all requirements should be installed using pip, one of them is not available through pypi at the moment: you can just install it using:
+```bash
+pip install git+https://github.com/LeonardoAlchieri/cvxEDA.git
+```
+Otherwise, you can create a new conda (or even better, [mamba](https://github.com/mamba-org/mamba)) running the following command:
+```bash
+conda create -f env.yml
+```
+or (*even better!*)
+```bash
+mamba create -f env.yml
+```
 
 
 
